@@ -32,7 +32,7 @@
     const now = new Date();
     return {
       device: {
-        name:     Storage.get(Storage.KEYS.DEVICE_NAME, 'SkyCore-Demo'),
+        name:     Storage.get(Storage.KEYS.DEVICE_NAME, 'SkyCore'),
         ip:       '192.168.1.42',
         firmware: 'v2.4.1',
         uptime:   Math.floor(Date.now() / 1000) % 86400,
@@ -360,7 +360,8 @@
    */
   function _getMoonPhase(date) {
     const KNOWN_NEW_MOON = new Date('2000-01-06T18:14:00Z');
-    const SYNODIC = 29.530589;
+    // Synodic period matches firmware constant: 2551443 s / 86400 = 29.530590278 days
+    const SYNODIC = 2551443 / 86400;
     const daysSince = (date - KNOWN_NEW_MOON) / 86_400_000;
     const phase = ((daysSince % SYNODIC) + SYNODIC) % SYNODIC;
     const idx = Math.floor((phase / SYNODIC) * 8) % 8;

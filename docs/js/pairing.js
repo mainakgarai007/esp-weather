@@ -224,7 +224,8 @@
       });
 
       skipBtn.addEventListener('click', () => {
-        global.Storage.set(global.Storage.KEYS.DEMO_MODE, true);
+        const S = global.Storage;
+        S.set(S.KEYS.DEMO_MODE, true);
         backdrop.remove();
         resolve({ key: null, espIP: null });
       });

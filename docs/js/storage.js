@@ -122,8 +122,11 @@
     set(KEYS.THEME, theme);
   }
 
-  /**
-   * Append an entry to a capped history array.
+  /** Append an entry to a capped history array.
+   * Capacity limits (tuned for typical session data sizes):
+   *   - Weather history : 500 entries (appendWeatherHistory)
+   *   - Notification history: 100 entries (appendNotifHistory)
+   *   - Log history     : 300 entries (appendLog)
    * @param {string} key - A KEYS value for the history array.
    * @param {Object} entry
    * @param {number} [maxLength=200]
