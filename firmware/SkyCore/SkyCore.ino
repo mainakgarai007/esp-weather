@@ -7,9 +7,9 @@
  *   - ESP8266WiFi          (built-in with ESP8266 Arduino core)
  *   - ESP8266WebServer     (built-in with ESP8266 Arduino core)
  *   - ArduinoOTA           (built-in with ESP8266 Arduino core)
- *   - NTPClient            (by Fabrice Weinberg, v3.x)
+ *   - NTPClient            (by Fabrice Weinberg, v3.2.1+)
  *   - WiFiUdp              (built-in with ESP8266 Arduino core)
- *   - ArduinoJson          (by Benoit Blanchon, v6.x)
+ *   - ArduinoJson          (by Benoit Blanchon, v6.x or v7.x)
  *   - Adafruit_NeoPixel    (by Adafruit)
  *   - LittleFS             (built-in with ESP8266 Arduino core)
  *   - ESP8266HTTPClient    (built-in with ESP8266 Arduino core)
@@ -715,7 +715,7 @@ SeasonCond parseSeasonFromMonth(int month) {
 WarmLedMode parseMoonPhase(unsigned long epoch, bool nightTime) {
     if (!nightTime) return WL_DAY;
     // Reference new moon: 2000-01-06T18:14 UTC ≈ epoch 947182440
-    const unsigned long SYNODIC = 2551443UL;
+    const unsigned long SYNODIC = 2551443UL; // 29.53059 days × 86400 s/day
     long age = (long)((epoch - 947182440UL) % SYNODIC);
     if (age < 0) age += SYNODIC;
     float phase = (float)age / (float)SYNODIC; // 0=new, 0.5=full
@@ -1188,9 +1188,10 @@ void devModeLoop() {
 //  HELPERS
 // ============================================================
 String generatePairKey() {
-    // Derive a unique SKY-XXXX-XXXX key from chip IDs and time
-    uint32_t a = ESP.getChipId()      ^ (uint32_t)(millis()  * 1234567UL);
-    uint32_t b = ESP.getFlashChipId() ^ (uint32_t)(micros()  * 987654UL);
+    // Mix hardware entropy (RANDOM_REG32 = ESP8266 hardware RNG) with chip IDs
+    // to produce an unpredictable SKY-XXXX-XXXX pair key.
+    uint32_t a = RANDOM_REG32 ^ ESP.getChipId()      ^ (uint32_t)(micros() * 1234567UL);
+    uint32_t b = RANDOM_REG32 ^ ESP.getFlashChipId() ^ (uint32_t)(millis() * 987654321UL);
     char key[20];
     snprintf(key, sizeof(key), "SKY-%04X-%04X",
              (unsigned)(a & 0xFFFF), (unsigned)(b & 0xFFFF));
