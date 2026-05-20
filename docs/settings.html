@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkyCore / LightOS Core — Settings</title>
+  <meta name="description" content="SkyCore device settings and controls" />
+  <meta name="theme-color" content="#00d4ff" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">⚡ SkyCore</a>
+      <nav class="navbar-nav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="dashboard.html">Dashboard</a>
+        <a class="nav-link" href="status.html">Device</a>
+        <a class="nav-link" href="firmware.html">Firmware</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="help.html">Help</a>
+      </nav>
+      <div class="flex items-center gap-sm">
+        <span class="status-dot device-status-dot idle"></span>
+        <span class="device-status-text text-sm text-muted">Idle</span>
+        <button class="btn btn-ghost" data-action="toggle-theme" aria-label="Toggle theme">
+          <span data-theme-label>☀️</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <a class="nav-link" href="status.html">Device Status</a>
+    <a class="nav-link" href="pairing.html">Pair Device</a>
+    <a class="nav-link" href="pixel-legend.html">Pixel Legend</a>
+    <a class="nav-link" href="led-legend.html">LED Legend</a>
+    <a class="nav-link" href="firmware.html">Firmware</a>
+    <a class="nav-link" href="settings.html">Settings</a>
+    <a class="nav-link" href="update.html">Updates</a>
+    <a class="nav-link" href="logs.html">Logs</a>
+    <a class="nav-link" href="notifications.html">Notifications</a>
+    <a class="nav-link" href="buttons.html">Button Guide</a>
+    <a class="nav-link" href="help.html">Help</a>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <div class="breadcrumbs">
+        <a href="index.html">SkyCore</a>
+        <span>•</span>
+        <span>Settings</span>
+      </div>
+      <h1>Device Settings</h1>
+      <p class="text-dim">Tune the ambient OS: brightness, animations, buzzer, and device identity.</p>
+    </div>
+
+    <section class="section">
+      <div class="glass-card">
+        <div class="device-grid">
+          <div>
+            <label class="form-label" for="setting-device-name">Device Name</label>
+            <input class="form-input" id="setting-device-name" type="text" placeholder="SkyCore" />
+          </div>
+          <div>
+            <label class="form-label" for="setting-brightness">Brightness</label>
+            <input class="form-input" id="setting-brightness" type="range" min="5" max="255" step="1" />
+            <span class="form-hint">Current: <span data-setting="brightness">—</span></span>
+          </div>
+          <div>
+            <label class="form-label" for="setting-animations">Animations</label>
+            <select class="form-input" id="setting-animations">
+              <option value="true">Enabled</option>
+              <option value="false">Disabled</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" for="setting-buzzer">Buzzer</label>
+            <select class="form-input" id="setting-buzzer">
+              <option value="true">Enabled</option>
+              <option value="false">Muted</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" for="setting-night-mute">Night Mute</label>
+            <select class="form-input" id="setting-night-mute">
+              <option value="true">Auto-mute at night</option>
+              <option value="false">Always on</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" for="setting-holiday">Holiday Mode</label>
+            <select class="form-input" id="setting-holiday">
+              <option value="false">Weekday / Weekend</option>
+              <option value="true">Festival / Holiday</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="flex gap-sm flex-wrap">
+          <button class="btn btn-primary" id="btn-save-config">Save to Device</button>
+          <button class="btn btn-ghost" id="btn-restart">Restart ESP</button>
+          <button class="btn btn-ghost" id="btn-reset-wifi">Reset WiFi</button>
+          <button class="btn btn-ghost" id="btn-factory-reset">Factory Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Local Preferences</div>
+      <div class="glass-card">
+        <div class="device-grid">
+          <div>
+            <label class="form-label" for="setting-hemisphere">Hemisphere</label>
+            <select class="form-input" id="setting-hemisphere">
+              <option value="north">Northern</option>
+              <option value="south">Southern</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" for="setting-theme">Theme</label>
+            <select class="form-input" id="setting-theme" data-action="toggle-theme-select">
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Storage</label>
+            <button class="btn btn-ghost" id="btn-clear-storage">Clear Local Storage</button>
+          </div>
+          <div>
+            <label class="form-label">Pairing</label>
+            <button class="btn btn-ghost" id="btn-repair">Re-Pair Device</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Bottom">
+    <a class="bottom-nav-link" href="settings.html">⚙️<span>Settings</span></a>
+    <a class="bottom-nav-link" href="dashboard.html">📡<span>Live</span></a>
+    <a class="bottom-nav-link" href="status.html">🛰️<span>Status</span></a>
+    <a class="bottom-nav-link" href="help.html">❓<span>Help</span></a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/pairing.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/pixel-legend.js"></script>
+  <script src="js/onboarding.js"></script>
+  <script src="js/firmware-viewer.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+</html>

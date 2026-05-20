@@ -13,7 +13,7 @@
   'use strict';
 
   /** Current schema version — bump to trigger migration. */
-  const SCHEMA_VERSION = 1;
+  const SCHEMA_VERSION = 2;
 
   /** Namespace prefix to avoid collisions with other sites on GitHub Pages. */
   const NS = 'skycore_';
@@ -25,8 +25,11 @@
     PAIRING_KEY:      NS + 'pairing_key',
     PAIRING_ESP_IP:   NS + 'pairing_esp_ip',
     PAIRING_VERIFIED: NS + 'pairing_verified',
+    ACCOUNT_PROFILE:   NS + 'account_profile',
+    ONBOARDING_DONE:   NS + 'onboarding_done',
     DEVICE_NAME:      NS + 'device_name',
     DEVICE_SETTINGS:  NS + 'device_settings',
+    FIRMWARE_VERSION: NS + 'firmware_version',
     WEATHER_HISTORY:  NS + 'weather_history',
     NOTIF_SETTINGS:   NS + 'notif_settings',
     NOTIF_HISTORY:    NS + 'notif_history',
@@ -106,6 +109,10 @@
     if (stored < 1) {
       // v0 → v1: no-op (first install)
     }
+    if (stored < 2) {
+      // v1 → v2: ensure onboarding flag and profile fields
+      set(KEYS.ONBOARDING_DONE, get(KEYS.ONBOARDING_DONE, false));
+    }
 
     set(KEYS.SCHEMA_VERSION, SCHEMA_VERSION);
   }
@@ -168,6 +175,26 @@
     appendHistory(KEYS.LOG_HISTORY, entry, 300);
   }
 
+  /** @returns {Object|null} */
+  function getAccountProfile() {
+    return get(KEYS.ACCOUNT_PROFILE, null);
+  }
+
+  /** @param {Object} profile */
+  function setAccountProfile(profile) {
+    set(KEYS.ACCOUNT_PROFILE, profile);
+  }
+
+  /** @returns {Object} */
+  function getDeviceSettings() {
+    return get(KEYS.DEVICE_SETTINGS, {});
+  }
+
+  /** @param {Object} settings */
+  function setDeviceSettings(settings) {
+    set(KEYS.DEVICE_SETTINGS, settings);
+  }
+
   // ─── Default notification settings ──────────────────────────────────────
 
   const DEFAULT_NOTIF_SETTINGS = Object.freeze({
@@ -202,6 +229,10 @@
     clear,
     getTheme,
     setTheme,
+    getAccountProfile,
+    setAccountProfile,
+    getDeviceSettings,
+    setDeviceSettings,
     appendWeatherHistory,
     getWeatherHistory,
     appendNotifHistory,

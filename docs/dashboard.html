@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkyCore / LightOS Core — Dashboard</title>
+  <meta name="description" content="Live SkyCore device dashboard" />
+  <meta name="theme-color" content="#00d4ff" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">⚡ SkyCore</a>
+      <nav class="navbar-nav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="dashboard.html">Dashboard</a>
+        <a class="nav-link" href="status.html">Device</a>
+        <a class="nav-link" href="firmware.html">Firmware</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="help.html">Help</a>
+      </nav>
+      <div class="flex items-center gap-sm">
+        <span class="status-dot device-status-dot idle" aria-hidden="true"></span>
+        <span class="device-status-text text-sm text-muted">Idle</span>
+        <button class="btn btn-ghost" data-action="toggle-theme" aria-label="Toggle theme">
+          <span data-theme-label>☀️</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <a class="nav-link" href="status.html">Device Status</a>
+    <a class="nav-link" href="pairing.html">Pair Device</a>
+    <a class="nav-link" href="pixel-legend.html">Pixel Legend</a>
+    <a class="nav-link" href="led-legend.html">LED Legend</a>
+    <a class="nav-link" href="firmware.html">Firmware</a>
+    <a class="nav-link" href="settings.html">Settings</a>
+    <a class="nav-link" href="update.html">Updates</a>
+    <a class="nav-link" href="logs.html">Logs</a>
+    <a class="nav-link" href="notifications.html">Notifications</a>
+    <a class="nav-link" href="buttons.html">Button Guide</a>
+    <a class="nav-link" href="help.html">Help</a>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <div class="breadcrumbs">
+        <a href="index.html">SkyCore</a>
+        <span>•</span>
+        <span>Dashboard</span>
+      </div>
+      <h1>Live Dashboard</h1>
+      <p class="text-dim">Real-time telemetry, device intelligence, and pixel interpretation.</p>
+    </div>
+
+    <section class="section">
+      <div class="device-grid">
+        <div class="metric-card">
+          <div class="metric-icon">📡</div>
+          <div class="metric-label">Device State</div>
+          <div class="metric-value"><span class="device-status-text">—</span></div>
+          <div class="metric-trend">Uptime <span data-device="uptime">—</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">🌐</div>
+          <div class="metric-label">WiFi Quality</div>
+          <div class="metric-value" data-network="wifiQuality">—</div>
+          <div class="metric-trend">RSSI <span data-device="rssi">—</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">🛰️</div>
+          <div class="metric-label">Internet</div>
+          <div class="metric-value" data-network="internetQuality">—</div>
+          <div class="metric-trend">API <span data-network="apiStatus">—</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">🧠</div>
+          <div class="metric-label">RAM</div>
+          <div class="metric-value"><span data-device="freeHeap">—</span></div>
+          <div class="metric-trend">Errors <span data-device="errorCount">—</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Pixel Interpretation</div>
+      <div class="glass-card">
+        <div class="flex-between flex-wrap gap-lg">
+          <div class="flex items-center gap-md">
+            <div class="pixel-color" data-pixel="pixel1"></div>
+            <div>
+              <div class="text-sm text-muted">Pixel 1 · Environment</div>
+              <h3 data-pixel="pixel1-meaning">—</h3>
+              <p class="text-dim" data-pixel="pixel1-reason">—</p>
+              <p class="text-xs text-muted">Effect: <span data-pixel="pixel1-effect">—</span></p>
+            </div>
+          </div>
+          <div class="flex items-center gap-md">
+            <div class="pixel-color" data-pixel="pixel2"></div>
+            <div>
+              <div class="text-sm text-muted">Pixel 2 · Device</div>
+              <h3 data-pixel="pixel2-meaning">—</h3>
+              <p class="text-dim" data-pixel="pixel2-reason">—</p>
+              <p class="text-xs text-muted">Effect: <span data-pixel="pixel2-effect">—</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Weather Intelligence</div>
+      <div class="glass-card">
+        <div class="device-grid">
+          <div>
+            <p class="text-xs text-muted text-mono">CONDITION</p>
+            <h3 data-weather="condition">—</h3>
+            <p class="text-dim" data-weather="description">—</p>
+          </div>
+          <div>
+            <p class="text-xs text-muted text-mono">SEASON</p>
+            <h3 data-time="season">—</h3>
+            <p class="text-dim">Moon: <span data-time="moon">—</span></p>
+          </div>
+          <div>
+            <p class="text-xs text-muted text-mono">CALENDAR</p>
+            <h3 data-time="dayOfWeek">—</h3>
+            <p class="text-dim">Holiday: <span data-weather="holiday">—</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Bottom">
+    <a class="bottom-nav-link" href="index.html">🏠<span>Home</span></a>
+    <a class="bottom-nav-link" href="dashboard.html">📡<span>Live</span></a>
+    <a class="bottom-nav-link" href="status.html">🛰️<span>Device</span></a>
+    <a class="bottom-nav-link" href="settings.html">⚙️<span>Settings</span></a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/pairing.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/pixel-legend.js"></script>
+  <script src="js/onboarding.js"></script>
+  <script src="js/firmware-viewer.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+</html>

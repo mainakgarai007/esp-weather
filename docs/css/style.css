@@ -1762,3 +1762,104 @@ input[type="color"]:hover { border-color: var(--color-primary); box-shadow: var(
   body { background: white; color: black; }
   .glass-card { background: white; border: 1px solid #ccc; box-shadow: none; }
 }
+
+/* --------------------------------------------------------------------------
+   33. Bottom Navigation (Mobile)
+   -------------------------------------------------------------------------- */
+.bottom-nav {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(10, 10, 20, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid var(--color-border);
+  padding: 8px 12px 10px;
+  z-index: var(--z-sticky);
+}
+
+.bottom-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+.bottom-nav-link span {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.bottom-nav-link:hover {
+  color: var(--color-primary);
+}
+
+@media (min-width: 768px) {
+  .bottom-nav { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   34. Legend Swatches & LED Effects
+   -------------------------------------------------------------------------- */
+.swatch-red { background: #ff3366; box-shadow: 0 0 10px rgba(255, 51, 102, 0.6); }
+.swatch-orange { background: #ff9500; box-shadow: 0 0 10px rgba(255, 149, 0, 0.6); }
+.swatch-green { background: #00ff88; box-shadow: 0 0 10px rgba(0, 255, 136, 0.6); }
+.swatch-blue { background: #00d4ff; box-shadow: 0 0 10px rgba(0, 212, 255, 0.6); }
+.swatch-purple { background: #7b2fff; box-shadow: 0 0 10px rgba(123, 47, 255, 0.6); }
+.swatch-warm { background: #ffefc0; box-shadow: 0 0 10px rgba(255, 239, 192, 0.7); }
+.swatch-yellow { background: #ffe066; box-shadow: 0 0 10px rgba(255, 224, 102, 0.7); }
+.swatch-extra { background: #00ff88; box-shadow: 0 0 10px rgba(0, 255, 136, 0.7); }
+
+.effect-slow-blink { animation: blink 1.4s step-start infinite; }
+.effect-blink { animation: blink 0.8s step-start infinite; }
+.effect-fast-blink { animation: blink 0.4s step-start infinite; }
+.effect-triple { animation: tripleBlink 2.2s step-start infinite; }
+.effect-bright { filter: brightness(1.2); }
+.effect-pulse { animation: pulse 1.6s ease-in-out infinite; }
+.effect-slow-pulse { animation: pulse 2.6s ease-in-out infinite; }
+.effect-fast-pulse { animation: pulse 0.8s ease-in-out infinite; }
+.effect-dim-pulse { opacity: 0.7; animation: pulse 2.2s ease-in-out infinite; }
+.effect-dim { opacity: 0.5; }
+.effect-breathing { animation: breathe 2s ease-in-out infinite; }
+.effect-rainbow { background: conic-gradient(#ff3366, #ff9500, #ffff00, #00ff88, #00d4ff, #7b2fff, #ff3366); animation: rainbow 3.5s linear infinite; }
+.effect-alternate { animation: blink 1s step-start infinite; }
+.effect-flash { animation: blink 0.6s step-start infinite; }
+.effect-rapid { animation: blink 0.25s step-start infinite; }
+.effect-off { opacity: 0.1; }
+
+/* --------------------------------------------------------------------------
+   35. Toggle Inputs
+   -------------------------------------------------------------------------- */
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.toggle input[type=\"checkbox\"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   36. Extra animations
+   -------------------------------------------------------------------------- */
+@keyframes tripleBlink {
+  0%, 10% { opacity: 1; }
+  20%, 30% { opacity: 0.1; }
+  40%, 50% { opacity: 1; }
+  60%, 70% { opacity: 0.1; }
+  80%, 90% { opacity: 1; }
+  100% { opacity: 0.2; }
+}

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkyCore / LightOS Core — Button Guide</title>
+  <meta name="description" content="SkyCore hardware button guide" />
+  <meta name="theme-color" content="#00d4ff" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">⚡ SkyCore</a>
+      <nav class="navbar-nav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="dashboard.html">Dashboard</a>
+        <a class="nav-link" href="status.html">Device</a>
+        <a class="nav-link" href="firmware.html">Firmware</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="help.html">Help</a>
+      </nav>
+      <div class="flex items-center gap-sm">
+        <span class="status-dot device-status-dot idle"></span>
+        <span class="device-status-text text-sm text-muted">Idle</span>
+        <button class="btn btn-ghost" data-action="toggle-theme" aria-label="Toggle theme">
+          <span data-theme-label>☀️</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <a class="nav-link" href="status.html">Device Status</a>
+    <a class="nav-link" href="pairing.html">Pair Device</a>
+    <a class="nav-link" href="pixel-legend.html">Pixel Legend</a>
+    <a class="nav-link" href="led-legend.html">LED Legend</a>
+    <a class="nav-link" href="firmware.html">Firmware</a>
+    <a class="nav-link" href="settings.html">Settings</a>
+    <a class="nav-link" href="update.html">Updates</a>
+    <a class="nav-link" href="logs.html">Logs</a>
+    <a class="nav-link" href="notifications.html">Notifications</a>
+    <a class="nav-link" href="buttons.html">Button Guide</a>
+    <a class="nav-link" href="help.html">Help</a>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <div class="breadcrumbs">
+        <a href="index.html">SkyCore</a>
+        <span>•</span>
+        <span>Button Guide</span>
+      </div>
+      <h1>Button Guide</h1>
+      <p class="text-dim">Hardware control shortcuts for SkyCore.</p>
+    </div>
+
+    <section class="section">
+      <div class="glass-card">
+        <div class="device-grid">
+          <div>
+            <h3>1 Press</h3>
+            <p class="text-dim">Force weather update + API refresh.</p>
+          </div>
+          <div>
+            <h3>2 Press</h3>
+            <p class="text-dim">Toggle display mode (season / weather).</p>
+          </div>
+          <div>
+            <h3>5 Press</h3>
+            <p class="text-dim">Enable Developer Mode (RAM, uptime, WiFi).</p>
+          </div>
+          <div>
+            <h3>Hold</h3>
+            <p class="text-dim">Reset WiFi credentials and reboot.</p>
+          </div>
+          <div>
+            <h3>Hold on Boot</h3>
+            <p class="text-dim">Enter Recovery Mode (red/blue alternating pixels).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Bottom">
+    <a class="bottom-nav-link" href="buttons.html">🔘<span>Buttons</span></a>
+    <a class="bottom-nav-link" href="help.html">❓<span>Help</span></a>
+    <a class="bottom-nav-link" href="pairing.html">🔗<span>Pair</span></a>
+    <a class="bottom-nav-link" href="dashboard.html">📡<span>Live</span></a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/pairing.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/pixel-legend.js"></script>
+  <script src="js/onboarding.js"></script>
+  <script src="js/firmware-viewer.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+</html>

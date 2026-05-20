@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkyCore / LightOS Core — Help</title>
+  <meta name="description" content="SkyCore help and troubleshooting" />
+  <meta name="theme-color" content="#00d4ff" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">⚡ SkyCore</a>
+      <nav class="navbar-nav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="dashboard.html">Dashboard</a>
+        <a class="nav-link" href="status.html">Device</a>
+        <a class="nav-link" href="firmware.html">Firmware</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="help.html">Help</a>
+      </nav>
+      <div class="flex items-center gap-sm">
+        <span class="status-dot device-status-dot idle"></span>
+        <span class="device-status-text text-sm text-muted">Idle</span>
+        <button class="btn btn-ghost" data-action="toggle-theme" aria-label="Toggle theme">
+          <span data-theme-label>☀️</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <a class="nav-link" href="status.html">Device Status</a>
+    <a class="nav-link" href="pairing.html">Pair Device</a>
+    <a class="nav-link" href="pixel-legend.html">Pixel Legend</a>
+    <a class="nav-link" href="led-legend.html">LED Legend</a>
+    <a class="nav-link" href="firmware.html">Firmware</a>
+    <a class="nav-link" href="settings.html">Settings</a>
+    <a class="nav-link" href="update.html">Updates</a>
+    <a class="nav-link" href="logs.html">Logs</a>
+    <a class="nav-link" href="notifications.html">Notifications</a>
+    <a class="nav-link" href="buttons.html">Button Guide</a>
+    <a class="nav-link" href="help.html">Help</a>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <div class="breadcrumbs">
+        <a href="index.html">SkyCore</a>
+        <span>•</span>
+        <span>Help</span>
+      </div>
+      <h1>Help & Troubleshooting</h1>
+      <p class="text-dim">Everything you need to connect, recover, and understand SkyCore.</p>
+    </div>
+
+    <section class="section">
+      <div class="glass-card">
+        <h3>Quick Start</h3>
+        <ol class="text-dim" style="display:grid;gap:8px">
+          <li>Connect to <strong>SkyCore_Setup</strong> WiFi on first boot.</li>
+          <li>Open <strong>192.168.4.1</strong> and enter WiFi + API key + device key.</li>
+          <li>Paste your device key from the onboarding screen.</li>
+          <li>Visit the dashboard and pair using the ESP IP address.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="glass-card">
+        <h3>Troubleshooting</h3>
+        <ul class="text-dim" style="display:grid;gap:8px">
+          <li>📡 If device shows Offline, verify WiFi credentials and power cycle.</li>
+          <li>�� Hold the hardware button for 3 seconds to reset WiFi.</li>
+          <li>🛠️ Hold button during boot to enter Recovery Mode.</li>
+          <li>🌐 Ensure OpenWeather API key is valid and not rate-limited.</li>
+          <li>🧠 Check free RAM in device status if unstable.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">FAQs</div>
+      <div class="glass-card">
+        <div style="display:grid;gap:12px">
+          <div>
+            <strong>How do I regenerate the pairing key?</strong>
+            <p class="text-dim">Use the Pair Device page or clear local storage to start fresh.</p>
+          </div>
+          <div>
+            <strong>Why is the LED blinking red/blue?</strong>
+            <p class="text-dim">That indicates a thunderstorm warning from the weather API.</p>
+          </div>
+          <div>
+            <strong>Can I use this without internet?</strong>
+            <p class="text-dim">The dashboard works offline for history, but live data needs internet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Bottom">
+    <a class="bottom-nav-link" href="help.html">❓<span>Help</span></a>
+    <a class="bottom-nav-link" href="buttons.html">🔘<span>Buttons</span></a>
+    <a class="bottom-nav-link" href="pairing.html">🔗<span>Pair</span></a>
+    <a class="bottom-nav-link" href="dashboard.html">📡<span>Live</span></a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/pairing.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/pixel-legend.js"></script>
+  <script src="js/onboarding.js"></script>
+  <script src="js/firmware-viewer.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+</html>

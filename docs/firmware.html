@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SkyCore / LightOS Core — Firmware</title>
+  <meta name="description" content="SkyCore firmware management and downloads" />
+  <meta name="theme-color" content="#00d4ff" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">⚡ SkyCore</a>
+      <nav class="navbar-nav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="dashboard.html">Dashboard</a>
+        <a class="nav-link" href="status.html">Device</a>
+        <a class="nav-link" href="firmware.html">Firmware</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="help.html">Help</a>
+      </nav>
+      <div class="flex items-center gap-sm">
+        <span class="status-dot device-status-dot idle"></span>
+        <span class="device-status-text text-sm text-muted">Idle</span>
+        <button class="btn btn-ghost" data-action="toggle-theme" aria-label="Toggle theme">
+          <span data-theme-label>☀️</span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="dashboard.html">Dashboard</a>
+    <a class="nav-link" href="status.html">Device Status</a>
+    <a class="nav-link" href="pairing.html">Pair Device</a>
+    <a class="nav-link" href="pixel-legend.html">Pixel Legend</a>
+    <a class="nav-link" href="led-legend.html">LED Legend</a>
+    <a class="nav-link" href="firmware.html">Firmware</a>
+    <a class="nav-link" href="settings.html">Settings</a>
+    <a class="nav-link" href="update.html">Updates</a>
+    <a class="nav-link" href="logs.html">Logs</a>
+    <a class="nav-link" href="notifications.html">Notifications</a>
+    <a class="nav-link" href="buttons.html">Button Guide</a>
+    <a class="nav-link" href="help.html">Help</a>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <div class="breadcrumbs">
+        <a href="index.html">SkyCore</a>
+        <span>•</span>
+        <span>Firmware</span>
+      </div>
+      <h1>Firmware Management</h1>
+      <p class="text-dim">Download, review, and flash SkyCore firmware builds.</p>
+    </div>
+
+    <section class="section">
+      <div class="device-grid">
+        <div class="glass-card">
+          <p class="text-xs text-muted text-mono">STABLE</p>
+          <h3>SkyCore Firmware <span data-firmware="version">v1.1.0</span></h3>
+          <p class="text-dim">Production-ready build with OTA, pairing, and pixel intelligence.</p>
+          <div class="flex gap-sm flex-wrap" style="margin-top:var(--space-sm)">
+            <a class="btn btn-primary" href="firmware/SkyCore.ino" download>Download .ino</a>
+            <button class="btn btn-ghost" data-copy="#firmware-code">Copy Firmware</button>
+          </div>
+        </div>
+        <div class="glass-card">
+          <p class="text-xs text-muted text-mono">BETA</p>
+          <h3>LightOS Beta Channel</h3>
+          <p class="text-dim">Early access builds for new animations and sensors.</p>
+          <button class="btn btn-ghost" disabled>Coming Soon</button>
+        </div>
+        <div class="glass-card">
+          <p class="text-xs text-muted text-mono">EXPERIMENTAL</p>
+          <h3>LightOS Labs</h3>
+          <p class="text-dim">Cutting-edge experiments: battery monitors, anime tracker, extra LEDs.</p>
+          <button class="btn btn-ghost" disabled>Coming Soon</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Firmware Code Viewer</div>
+      <div class="code-viewer" id="firmware-viewer">
+        <div class="code-viewer-header">
+          <div class="code-viewer-dots"><span></span><span></span><span></span></div>
+          <div class="code-viewer-lang">SkyCore.ino</div>
+        </div>
+        <pre><code id="firmware-code" class="language-arduino">Loading firmware…</code></pre>
+        <button class="btn btn-ghost code-viewer-copy" data-copy="#firmware-code">Copy</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">Pin Layout (NodeMCU)</div>
+      <div class="glass-card">
+        <div class="device-grid">
+          <div>RED LED → GPIO5</div>
+          <div>ORANGE → GPIO4</div>
+          <div>GREEN → GPIO0</div>
+          <div>BLUE → GPIO2</div>
+          <div>PIXEL → GPIO14</div>
+          <div>WARM WHITE → GPIO12</div>
+          <div>YELLOW → GPIO13</div>
+          <div>BUZZER → GPIO15</div>
+          <div>BUTTON → GPIO16</div>
+          <div>EXTRA LED → GPIO3</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Bottom">
+    <a class="bottom-nav-link" href="firmware.html">⬇️<span>Firmware</span></a>
+    <a class="bottom-nav-link" href="update.html">🧬<span>Updates</span></a>
+    <a class="bottom-nav-link" href="settings.html">⚙️<span>Settings</span></a>
+    <a class="bottom-nav-link" href="help.html">❓<span>Help</span></a>
+  </nav>
+
+  <script src="js/storage.js"></script>
+  <script src="js/pairing.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/pixel-legend.js"></script>
+  <script src="js/onboarding.js"></script>
+  <script src="js/firmware-viewer.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+</html>

@@ -43,6 +43,19 @@
   }
 
   /**
+   * Retrieve existing key or generate + store a new one.
+   * @returns {string}
+   */
+  function getOrCreateKey() {
+    const S = global.Storage;
+    const existing = S?.get(S.KEYS.PAIRING_KEY, null);
+    if (existing && validateKey(existing)) return existing;
+    const fresh = generateKey();
+    if (S) S.set(S.KEYS.PAIRING_KEY, fresh);
+    return fresh;
+  }
+
+  /**
    * Validate a pairing key string.
    * @param {string} key
    * @returns {boolean}
@@ -115,7 +128,7 @@
       const existing = document.getElementById('pairing-modal-backdrop');
       if (existing) existing.remove();
 
-      const generatedKey = generateKey();
+      const generatedKey = getOrCreateKey();
 
       const backdrop = document.createElement('div');
       backdrop.id = 'pairing-modal-backdrop';
@@ -160,7 +173,7 @@
                 <button class="btn btn-ghost btn-icon" id="pair-key-regen" title="Generate new key"
                   style="flex-shrink:0" aria-label="Regenerate key">↺</button>
               </div>
-              <span class="form-hint">Copy this key into your ESP firmware (PAIRING_KEY constant).</span>
+              <span class="form-hint">Paste this key into the ESP setup portal (SkyCore_Setup).</span>
             </div>
 
             <div id="pair-error" class="form-error hidden" aria-live="polite"></div>
@@ -192,6 +205,7 @@
 
       regenBtn.addEventListener('click', () => {
         keyInput.value = generateKey();
+        if (global.Storage) global.Storage.set(global.Storage.KEYS.PAIRING_KEY, keyInput.value.trim());
         clearError();
       });
 
@@ -235,6 +249,60 @@
     });
   }
 
+  /**
+   * Initialise pairing page UI (pairing.html).
+   */
+  function initPage() {
+    const keyInput = document.getElementById('pair-key-input');
+    const ipInput = document.getElementById('pair-ip-input');
+    const connectBtn = document.getElementById('btn-pair-connect');
+    const demoBtn = document.getElementById('btn-pair-demo');
+    const statusEl = document.querySelector('[data-pairing=\"status\"]');
+    const messageEl = document.querySelector('[data-pairing=\"message\"]');
+    const keyEl = document.querySelector('[data-pairing=\"key\"]');
+
+    if (!keyInput || !ipInput || !connectBtn || !demoBtn) return;
+
+    const stored = getPairing();
+    const key = stored.key || getOrCreateKey();
+    keyInput.value = key;
+    if (keyEl) keyEl.textContent = key;
+    if (stored.espIP) ipInput.value = stored.espIP;
+
+    function setStatus(status, message) {
+      if (statusEl) statusEl.textContent = status;
+      if (messageEl) messageEl.textContent = message;
+    }
+
+    if (stored.verified) {
+      setStatus('Paired', 'Device verified and responding.');
+    } else if (stored.key && stored.espIP) {
+      setStatus('Waiting', 'Ready to verify device.');
+    } else {
+      setStatus('Not paired', 'Waiting for your device key and IP address.');
+    }
+
+    connectBtn.addEventListener('click', async () => {
+      const ip = ipInput.value.trim();
+      const keyValue = keyInput.value.trim().toUpperCase();
+      if (!ip || !validateKey(keyValue)) {
+        setStatus('Error', 'Enter a valid device key and IP address.');
+        return;
+      }
+      savePairing(keyValue, ip);
+      setStatus('Waiting', 'Verifying device...');
+      if (global.App && typeof global.App.pairDevice === 'function') {
+        const ok = await global.App.pairDevice(keyValue);
+        setStatus(ok ? 'Paired' : 'Error', ok ? 'Device paired successfully.' : 'Could not reach device.');
+      }
+    });
+
+    demoBtn.addEventListener('click', () => {
+      if (global.Storage) global.Storage.set(global.Storage.KEYS.DEMO_MODE, true);
+      setStatus('Demo', 'Demo mode enabled. Live data is simulated.');
+    });
+  }
+
   // ─── Initialisation ──────────────────────────────────────────────────────
 
   /**
@@ -250,6 +318,7 @@
 
     const demoMode = global.Storage.get(global.Storage.KEYS.DEMO_MODE, false);
     if (demoMode || isPaired()) return;
+    if (location.pathname.endsWith('pairing.html')) return;
 
     await showUI();
   }
@@ -264,6 +333,8 @@
     clearPairing,
     showUI,
     init,
+    initPage,
+    getOrCreateKey,
   };
 
 }(window));

@@ -31,38 +31,39 @@
   /** @type {PixelState[]} */
   const PIXEL1 = [
     // ── Humidity ──────────────────────────────────────────────────────────
-    { color: '#00d4ff', colorName: 'Cyan',         meaning: 'Optimal Humidity',   condition: 'Relative humidity 40–60 %',             priority: 10, category: 'Humidity' },
-    { color: '#0080ff', colorName: 'Blue',          meaning: 'High Humidity',      condition: 'Relative humidity 60–80 %',             priority: 11, category: 'Humidity' },
-    { color: '#004499', colorName: 'Deep Blue',     meaning: 'Very High Humidity', condition: 'Relative humidity > 80 %',              priority: 12, category: 'Humidity' },
-    { color: '#ffcc44', colorName: 'Amber',         meaning: 'Low Humidity',       condition: 'Relative humidity 20–40 %',             priority: 13, category: 'Humidity' },
-    { color: '#ff6600', colorName: 'Orange',        meaning: 'Very Low Humidity',  condition: 'Relative humidity < 20 %',              priority: 14, category: 'Humidity' },
+    { color: '#0033ff', colorName: 'Deep Blue',  meaning: 'Low Humidity',     condition: 'Humidity < 30 %',         effect: 'dim-pulse', priority: 10, category: 'Humidity' },
+    { color: '#0066ff', colorName: 'Blue',       meaning: 'Medium Humidity',  condition: 'Humidity 30–60 %',        effect: 'solid',     priority: 11, category: 'Humidity' },
+    { color: '#7b2fff', colorName: 'Purple',     meaning: 'High Humidity',    condition: 'Humidity 60–80 %',        effect: 'slow-pulse',priority: 12, category: 'Humidity' },
+    { color: '#b44cff', colorName: 'Violet',     meaning: 'Very High Humidity',condition: 'Humidity > 80 %',        effect: 'fast-pulse',priority: 13, category: 'Humidity' },
 
     // ── AQI / Air Quality ──────────────────────────────────────────────────
-    { color: '#00ff88', colorName: 'Mint Green',    meaning: 'Good Air Quality',   condition: 'AQI 0–50 (Good)',                       priority: 20, category: 'AQI' },
-    { color: '#aaff00', colorName: 'Yellow-Green',  meaning: 'Moderate AQI',       condition: 'AQI 51–100 (Moderate)',                 priority: 21, category: 'AQI' },
-    { color: '#ff9500', colorName: 'Orange',        meaning: 'Unhealthy (Sens)',   condition: 'AQI 101–150 (Unhealthy for Sensitive)', priority: 22, category: 'AQI' },
-    { color: '#ff3366', colorName: 'Red',           meaning: 'Unhealthy AQI',      condition: 'AQI 151–200 (Unhealthy)',               priority: 23, category: 'AQI' },
-    { color: '#7b2fff', colorName: 'Purple',        meaning: 'Very Unhealthy',     condition: 'AQI 201–300 (Very Unhealthy)',           priority: 24, category: 'AQI' },
-    { color: '#8b0000', colorName: 'Maroon',        meaning: 'Hazardous AQI',      condition: 'AQI > 300 (Hazardous)',                 priority: 25, category: 'AQI' },
+    { color: '#00ff88', colorName: 'Green',      meaning: 'AQI Good',          condition: 'AQI 1 (Good)',            effect: 'solid',     priority: 20, category: 'AQI' },
+    { color: '#ffff00', colorName: 'Yellow',     meaning: 'AQI Moderate',      condition: 'AQI 2 (Moderate)',        effect: 'solid',     priority: 21, category: 'AQI' },
+    { color: '#ff9500', colorName: 'Orange',     meaning: 'AQI Bad',           condition: 'AQI 3 (Bad)',             effect: 'solid',     priority: 22, category: 'AQI' },
+    { color: '#ff3366', colorName: 'Red',        meaning: 'AQI Dangerous',     condition: 'AQI 4 (Danger)',          effect: 'blink',     priority: 23, category: 'AQI' },
+    { color: '#ff0000', colorName: 'Red',        meaning: 'AQI Very Dangerous',condition: 'AQI 5 (Very Dangerous)', effect: 'fast-blink',priority: 24, category: 'AQI' },
 
     // ── Wind ───────────────────────────────────────────────────────────────
-    { color: '#e0e0f0', colorName: 'White',         meaning: 'Calm Wind',          condition: 'Wind speed < 5 km/h',                   priority: 30, category: 'Wind' },
-    { color: '#aaddff', colorName: 'Light Blue',    meaning: 'Light Breeze',       condition: 'Wind speed 5–20 km/h',                  priority: 31, category: 'Wind' },
-    { color: '#55aaff', colorName: 'Sky Blue',      meaning: 'Moderate Wind',      condition: 'Wind speed 20–40 km/h',                 priority: 32, category: 'Wind' },
-    { color: '#ff9500', colorName: 'Orange',        meaning: 'Strong Wind',        condition: 'Wind speed 40–60 km/h',                 priority: 33, category: 'Wind' },
-    { color: '#ff3366', colorName: 'Red',           meaning: 'Storm Wind',         condition: 'Wind speed > 60 km/h',                  priority: 34, category: 'Wind' },
+    { color: '#66ffee', colorName: 'Soft Cyan',  meaning: 'Wind Low',          condition: 'Wind < 5 m/s',            effect: 'solid',     priority: 30, category: 'Wind' },
+    { color: '#00d4ff', colorName: 'Cyan',       meaning: 'Wind Medium',       condition: 'Wind 5–10 m/s',           effect: 'pulse',     priority: 31, category: 'Wind' },
+    { color: '#00ffff', colorName: 'Bright Cyan',meaning: 'Strong Wind',       condition: 'Wind 10–17 m/s',          effect: 'blink',     priority: 32, category: 'Wind' },
+    { color: '#00ffff', colorName: 'Bright Cyan',meaning: 'Storm Wind',        condition: 'Wind ≥ 17 m/s',           effect: 'fast-blink',priority: 33, category: 'Wind' },
 
     // ── Fog / Visibility ───────────────────────────────────────────────────
-    { color: '#888899', colorName: 'Grey',          meaning: 'Light Fog',          condition: 'Visibility 5–10 km',                    priority: 40, category: 'Fog' },
-    { color: '#555566', colorName: 'Dark Grey',     meaning: 'Dense Fog',          condition: 'Visibility 1–5 km',                     priority: 41, category: 'Fog' },
-    { color: '#333344', colorName: 'Charcoal',      meaning: 'Thick Fog',          condition: 'Visibility < 1 km',                     priority: 42, category: 'Fog' },
+    { color: '#dddddd', colorName: 'White Dim',  meaning: 'Light Fog',         condition: 'Visibility 5–10 km',      effect: 'dim',       priority: 40, category: 'Fog' },
+    { color: '#ffffff', colorName: 'White',      meaning: 'Medium Fog',        condition: 'Visibility 1–5 km',       effect: 'pulse',     priority: 41, category: 'Fog' },
+    { color: '#ffffff', colorName: 'White',      meaning: 'Heavy Fog',         condition: 'Visibility < 1 km',       effect: 'blink',     priority: 42, category: 'Fog' },
 
     // ── UV Index ───────────────────────────────────────────────────────────
-    { color: '#00ff00', colorName: 'Green',         meaning: 'Low UV',             condition: 'UV index 0–2 (Low)',                    priority: 50, category: 'UV' },
-    { color: '#ffff00', colorName: 'Yellow',        meaning: 'Moderate UV',        condition: 'UV index 3–5 (Moderate)',               priority: 51, category: 'UV' },
-    { color: '#ff8800', colorName: 'Orange-Red',    meaning: 'High UV',            condition: 'UV index 6–7 (High)',                   priority: 52, category: 'UV' },
-    { color: '#ff0000', colorName: 'Red',           meaning: 'Very High UV',       condition: 'UV index 8–10 (Very High)',             priority: 53, category: 'UV' },
-    { color: '#cc00cc', colorName: 'Violet',        meaning: 'Extreme UV',         condition: 'UV index ≥ 11 (Extreme)',               priority: 54, category: 'UV' },
+    { color: '#000000', colorName: 'Off',        meaning: 'UV Low',            condition: 'UV 0–2',                  effect: 'off',       priority: 50, category: 'UV' },
+    { color: '#ff8800', colorName: 'Orange',     meaning: 'UV Moderate',       condition: 'UV 3–7',                  effect: 'dim',       priority: 51, category: 'UV' },
+    { color: '#ff8800', colorName: 'Orange',     meaning: 'UV High',           condition: 'UV 8–10',                 effect: 'pulse',     priority: 52, category: 'UV' },
+    { color: '#ff6600', colorName: 'Orange',     meaning: 'UV Extreme',        condition: 'UV ≥ 11',                 effect: 'fast-blink',priority: 53, category: 'UV' },
+
+    // ── Severity Overrides ─────────────────────────────────────────────────
+    { color: '#7b2fff', colorName: 'Purple',     meaning: 'Warning',           condition: 'Environmental warning',   effect: 'blink',     priority: 90, category: 'Severity' },
+    { color: '#ff3366', colorName: 'Red',        meaning: 'Danger',            condition: 'Danger alert active',     effect: 'fast-blink',priority: 91, category: 'Severity' },
+    { color: '#ff3366', colorName: 'Red',        meaning: 'Critical',          condition: 'Critical alert active',   effect: 'rapid',     priority: 92, category: 'Severity' },
   ];
 
   // ─── Pixel 2: Device Status ────────────────────────────────────────────
@@ -70,36 +71,32 @@
   /** @type {PixelState[]} */
   const PIXEL2 = [
     // ── WiFi ───────────────────────────────────────────────────────────────
-    { color: '#00ff88', colorName: 'Mint Green',    meaning: 'WiFi Strong',        condition: 'RSSI ≥ −50 dBm (Excellent)',            priority: 10, category: 'WiFi' },
-    { color: '#00d4ff', colorName: 'Cyan',          meaning: 'WiFi Good',          condition: 'RSSI −50 to −65 dBm',                   priority: 11, category: 'WiFi' },
-    { color: '#ffcc44', colorName: 'Amber',         meaning: 'WiFi Weak',          condition: 'RSSI −65 to −80 dBm',                   priority: 12, category: 'WiFi' },
-    { color: '#ff9500', colorName: 'Orange',        meaning: 'WiFi Poor',          condition: 'RSSI −80 to −90 dBm',                   priority: 13, category: 'WiFi' },
-    { color: '#ff3366', colorName: 'Red',           meaning: 'WiFi Disconnected',  condition: 'No WiFi connection / RSSI < −90 dBm',   priority: 14, category: 'WiFi' },
+    { color: '#00ff88', colorName: 'Green',    meaning: 'WiFi Connected',     condition: 'RSSI strong',                effect: 'solid',     priority: 10, category: 'WiFi' },
+    { color: '#ffff00', colorName: 'Yellow',   meaning: 'WiFi Weak',          condition: 'RSSI weak',                  effect: 'pulse',     priority: 11, category: 'WiFi' },
+    { color: '#ff9500', colorName: 'Orange',   meaning: 'WiFi Very Weak',     condition: 'RSSI very weak',             effect: 'pulse',     priority: 12, category: 'WiFi' },
+    { color: '#ff3366', colorName: 'Red',      meaning: 'WiFi Disconnected',  condition: 'No WiFi',                    effect: 'blink',     priority: 13, category: 'WiFi' },
 
     // ── Internet Quality ───────────────────────────────────────────────────
-    { color: '#00ff88', colorName: 'Mint Green',    meaning: 'Internet OK',        condition: 'Ping < 50 ms, no packet loss',           priority: 20, category: 'Internet' },
-    { color: '#ffcc44', colorName: 'Amber',         meaning: 'Internet Slow',      condition: 'Ping 50–200 ms or minor packet loss',    priority: 21, category: 'Internet' },
-    { color: '#ff3366', colorName: 'Red',           meaning: 'No Internet',        condition: 'DNS/ping failure — WiFi connected only', priority: 22, category: 'Internet' },
+    { color: '#00d4ff', colorName: 'Blue',     meaning: 'Internet Good',       condition: 'Low latency',               effect: 'pulse',     priority: 20, category: 'Internet' },
+    { color: '#7b2fff', colorName: 'Purple',   meaning: 'Internet Slow',       condition: 'Medium latency',            effect: 'pulse',     priority: 21, category: 'Internet' },
+    { color: '#ff9500', colorName: 'Orange',   meaning: 'Internet Bad',        condition: 'High latency',              effect: 'blink',     priority: 22, category: 'Internet' },
+    { color: '#ff3366', colorName: 'Red',      meaning: 'No Internet',         condition: 'Offline',                   effect: 'blink',     priority: 23, category: 'Internet' },
 
     // ── Weather API ────────────────────────────────────────────────────────
-    { color: '#00d4ff', colorName: 'Cyan',          meaning: 'API OK',             condition: 'Weather API responding normally',        priority: 30, category: 'API' },
-    { color: '#ff9500', colorName: 'Orange',        meaning: 'API Degraded',       condition: 'API responding slowly (> 3 s)',          priority: 31, category: 'API' },
-    { color: '#ff3366', colorName: 'Red',           meaning: 'API Failed',         condition: 'Weather API unreachable or error 5xx',   priority: 32, category: 'API' },
-    { color: '#7b2fff', colorName: 'Purple',        meaning: 'API Rate Limited',   condition: 'HTTP 429 — too many requests',           priority: 33, category: 'API' },
+    { color: '#00ff88', colorName: 'Green',    meaning: 'API OK',              condition: 'Update received',           effect: 'flash',     priority: 30, category: 'API' },
+    { color: '#ffff00', colorName: 'Yellow',   meaning: 'API Slow',            condition: 'Slow response',             effect: 'flash',     priority: 31, category: 'API' },
+    { color: '#ff3366', colorName: 'Red',      meaning: 'API Failed',          condition: 'No response',               effect: 'triple',    priority: 32, category: 'API' },
 
     // ── OTA / Update ───────────────────────────────────────────────────────
-    { color: '#ffffff', colorName: 'White',         meaning: 'OTA Idle',           condition: 'No pending firmware update',             priority: 40, category: 'OTA' },
-    { color: '#aaddff', colorName: 'Light Blue',    meaning: 'OTA Checking',       condition: 'Checking GitHub for new release',        priority: 41, category: 'OTA' },
-    { color: '#00d4ff', colorName: 'Cyan',          meaning: 'OTA Downloading',    condition: 'Firmware download in progress',          priority: 42, category: 'OTA' },
-    { color: '#00ff88', colorName: 'Mint Green',    meaning: 'OTA Complete',       condition: 'Firmware flashed — restarting device',  priority: 43, category: 'OTA' },
-    { color: '#ff3366', colorName: 'Red',           meaning: 'OTA Failed',         condition: 'Flash verification failed',             priority: 44, category: 'OTA' },
+    { color: '#ffffff', colorName: 'White',    meaning: 'Updating',            condition: 'Firmware update in progress',effect: 'fast-blink',priority: 40, category: 'Update' },
+    { color: '#00ff88', colorName: 'Green',    meaning: 'Update Success',      condition: 'Update completed',          effect: 'solid',     priority: 41, category: 'Update' },
+    { color: '#ff3366', colorName: 'Red',      meaning: 'Update Failed',       condition: 'Update error',              effect: 'blink',     priority: 42, category: 'Update' },
 
     // ── Special / Developer Modes ──────────────────────────────────────────
-    { color: '#7b2fff', colorName: 'Purple',        meaning: 'Developer Mode',     condition: 'Dev/debug mode active via serial cmd',  priority: 50, category: 'Special' },
-    { color: '#ff3366', colorName: 'Red (rapid)',   meaning: 'Pairing Mode',       condition: 'Waiting for dashboard pairing',          priority: 51, category: 'Special' },
-    { color: '#ffcc44', colorName: 'Amber (blink)', meaning: 'Config Reset',       condition: 'Factory reset in progress',             priority: 52, category: 'Special' },
-    { color: '#00ff00', colorName: 'Bright Green',  meaning: 'Self-Test Pass',     condition: 'POST self-test completed OK',            priority: 53, category: 'Special' },
-    { color: '#000000', colorName: 'Off',           meaning: 'Sleep / Off',        condition: 'Deep sleep or LED disabled by user',     priority: 99, category: 'Special' },
+    { color: '#7b2fff', colorName: 'Rainbow',  meaning: 'Developer Mode',      condition: 'Dev mode active',           effect: 'rainbow',   priority: 50, category: 'Special' },
+    { color: '#ff3366', colorName: 'Red/Blue', meaning: 'Recovery Mode',       condition: 'Recovery boot',             effect: 'alternate', priority: 51, category: 'Special' },
+    { color: '#b44cff', colorName: 'Purple',   meaning: 'WiFi Setup',          condition: 'Captive portal active',     effect: 'breathing', priority: 52, category: 'Special' },
+    { color: '#00d4ff', colorName: 'Blue',     meaning: 'Idle',                condition: 'Device idle',               effect: 'dim',       priority: 60, category: 'Special' },
   ];
 
   // ─── Rendering ────────────────────────────────────────────────────────
@@ -115,7 +112,7 @@
     item.setAttribute('data-tooltip', state.condition);
     item.setAttribute('data-category', state.category || '');
     item.innerHTML = `
-      <div class="legend-swatch" style="background:${state.color};box-shadow:0 0 6px ${state.color}88" aria-hidden="true"></div>
+      <div class="legend-swatch ${state.effect ? 'effect-' + state.effect : ''}" style="background:${state.color};box-shadow:0 0 6px ${state.color}88" aria-hidden="true"></div>
       <div>
         <div class="legend-label">${_esc(state.meaning)}</div>
         <div class="legend-desc">${_esc(state.colorName)}</div>
